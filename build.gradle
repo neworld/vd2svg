@@ -1,0 +1,36 @@
+group 'lt.neworld.vd2svg'
+version '0.0.1'
+
+buildscript {
+    ext.kotlin_version = '1.2.0'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+
+apply plugin: 'kotlin'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
+    compile "com.xenomachina:kotlin-argparser:2.0.3"
+    testCompile "junit:junit:4.12"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'lt.neworld.vd2svg.Vd2Svg'
+    }
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

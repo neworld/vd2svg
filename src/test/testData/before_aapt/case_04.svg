@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns:android="http://schemas.android.com/apk/res/android" height="24.0" width="24.0" xmlns="http://www.w3.org/2000/svg">
+    <path android:strokeColor="#00000000" android:strokeWidth="1" d="M-16,-16h375v76h-375z"/>
+    <path android:strokeColor="#00000000" android:strokeWidth="1" d="M7.623,15.104C6.617,14.031 6,12.588 6,11C6,7.686 8.686,5 12,5C15.314,5 18,7.686 18,11C18,12.539 17.421,13.942 16.469,15.004L16.485,15.004L15.805,16.53C15.582,17.03 15.291,17.863 15.154,18.4L15,19L9,19L8.844,18.4C8.705,17.867 8.421,17.023 8.211,16.517L7.623,15.104ZM11,0L13,0L13,3L11,3L11,0ZM1,10L4,10L4,12L1,12L1,10ZM20,10L23,10L23,12L20,12L20,10ZM10,21L14,21L14,23L10,23L10,21ZM4.422,2L6.945,4.539L5.531,5.953L3.008,3.414L4.422,2ZM19.531,2L20.945,3.414L18.422,5.953L17.008,4.539L19.531,2Z" fill="#FFF"/>
+</svg>
