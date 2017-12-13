@@ -1,4 +1,5 @@
 [![npm](https://img.shields.io/npm/v/vd2svg.svg)](https://www.npmjs.com/package/vd2svg)
+[![Build Status](https://travis-ci.org/neworld/vd2svg.svg?branch=master)](https://travis-ci.org/neworld/vd2svg)
 
 ### vd2svg
 
