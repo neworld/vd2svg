@@ -4,7 +4,7 @@
 ### vd2svg
 
 Android vector drawable to SVG converter.
-This tool is could help you extract all android vectors to SVG and display in any file browser.
+This tool could help you extract all android vectors to SVG and display in any file browser.
 
 ### Installation
 
@@ -13,7 +13,7 @@ Easiest way is to install via [NPM](https://www.npmjs.com/package/vd2svg)
 npm install vd2svg -g
 ```
 
-Another way is to clone this repo and install localy:
+Another way is to clone this repo and install locally:
 
 ```bash
 ./gradlew jdeployInstall
@@ -21,22 +21,31 @@ Another way is to clone this repo and install localy:
 
 ### Usage
 
-Program skips all non vector files.
+The program skips all non-vector xml.
 
 ```bash
 cd ~/your/drawable/folder
 vd2svg *.xml
 ```
 
-If you are using colors from resource files, then need point to colors file
+If you are using colors from resource files, then need point to colors file.
 
 ```bash
 cd ~/your/drawable/folder
 vd2svg -r ../values *.xml
 ``` 
 
-`-r` scans directory recursively and searches for color values.
-It also could point to concrete file.
+`-r` scans a directory recursively and searches for color values.
+It also could point to the concrete file.
+
+### Advance usage
+
+If you want fast preview all vectors and your file browser doesn't support SVG, you could convert them to png using [imagemagick](https://www.imagemagick.org/)
+
+```bash
+vd2svg *.xml
+mogrify -format png -density 1200 "*.svg"
+```
 
 ### Help
 
