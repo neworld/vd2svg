@@ -79,6 +79,23 @@ class Converter(val colors: ResourceCollector) {
         fixFill()
         fixRotate()
         fixScale()
+        fixStroke()
+    }
+
+    private fun Element.fixStroke() {
+        val strokeColor = attributes.get(ANDROID_NS, "strokeColor")
+        val strokeWidth = attributes.get(ANDROID_NS, "strokeWidth")
+
+        if (strokeColor != null) {
+            setAttribute("stroke", strokeColor)
+        }
+
+        if (strokeWidth != null) {
+            setAttribute("stroke-width", strokeWidth)
+        }
+
+        removeAttributeNS(ANDROID_NS, "strokeColor")
+        removeAttributeNS(ANDROID_NS, "strokeWidth")
     }
 
     private fun Element.fixTranslate() {
