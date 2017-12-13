@@ -1,19 +1,24 @@
 group 'lt.neworld.vd2svg'
-version '0.1.0'
+version '0.1.1'
 
 buildscript {
     ext.kotlin_version = '1.2.0'
 
     repositories {
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "gradle.plugin.lt.neworld.gradle:gradle-jdeploy-plugin:0.2.1"
     }
 }
 
 
 apply plugin: 'kotlin'
+apply plugin: "lt.neworld.jdeploy"
 
 repositories {
     mavenCentral()
@@ -33,4 +38,12 @@ jar {
     from {
         configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     }
+}
+
+jdeploy {
+    name = "vd2svg"
+    author = "Andrius Semionovas"
+    description = "Android vector drawable to SVG"
+    license = "Apache-2.0"
+    repository = "https://github.com/neworld/vd2svg"
 }
