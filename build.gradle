@@ -1,5 +1,5 @@
 group 'lt.neworld.vd2svg'
-version '0.1.1'
+version '0.2.0'
 
 buildscript {
     ext.kotlin_version = '1.2.0'
@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "gradle.plugin.lt.neworld.gradle:gradle-jdeploy-plugin:0.2.1"
+        classpath "gradle.plugin.lt.neworld.gradle:gradle-jdeploy-plugin:0.3.0"
     }
 }
 
