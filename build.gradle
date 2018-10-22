@@ -1,8 +1,8 @@
 group 'lt.neworld.vd2svg'
-version '0.2.0'
+version '0.3.0'
 
 buildscript {
-    ext.kotlin_version = '1.2.0'
+    ext.kotlin_version = '1.2.71'
 
     repositories {
         mavenCentral()
@@ -12,7 +12,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
-        classpath "gradle.plugin.lt.neworld.gradle:gradle-jdeploy-plugin:0.3.0"
+        classpath "lt.neworld.gradle:gradle-jdeploy-plugin:0.4.0"
     }
 }
 
@@ -26,8 +26,8 @@ repositories {
 }
 
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
-    compile "com.xenomachina:kotlin-argparser:2.0.3"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "com.xenomachina:kotlin-argparser:2.0.7"
     testCompile "junit:junit:4.12"
 }
 

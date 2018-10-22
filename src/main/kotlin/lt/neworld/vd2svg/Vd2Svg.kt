@@ -8,8 +8,6 @@ import com.xenomachina.argparser.mainBody
 import lt.neworld.vd2svg.processor.Builder
 import java.io.File
 import java.nio.file.FileSystems
-import java.util.logging.Level
-import java.util.logging.Logger
 
 /**
  * @author Andrius Semionovas
@@ -27,19 +25,11 @@ fun main(args: Array<String>) {
 }
 
 class ParsedArgs(parser: ArgParser) {
-    val verbose by parser.flagging("-v", "--verbose",
-            help = "Verbose mode. Causes $PROGRAM_NAME to print info messages"
-    )
-
-    val quiet by parser.flagging("-q", "--quiet",
-            help = "Quiet mode. Disables progress output"
-    )
-
     val output: File? by parser.storing(
             "-o", "--output",
             help = "Path to the output directory. By default, output is put together with the input files",
             transform = { File(this) }
-    ).default(null)
+    ).default(null as File?)
 
     val resources by parser.adding(
             "-r", "--resources",

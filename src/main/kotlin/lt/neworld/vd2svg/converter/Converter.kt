@@ -185,14 +185,6 @@ class Converter(val colors: ResourceCollector) {
 
     private fun Node.rename(new: String, namespaceUri: String?) {
         ownerDocument.renameNode(this, namespaceUri, new)
-
-//        val newElement = ownerDocument.createElementNS(namespaceUri, new)
-//
-//        val list = childNodes
-//        while (list.length != 0) {
-//            newElement.appendChild(list.item(0))
-//        }
-//        ownerDocument.replaceChild(newElement, this)
     }
 
     companion object {
