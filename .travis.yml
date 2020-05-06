@@ -1,4 +1,5 @@
 language: java
+jdk: oraclejdk11
 sudo: false # faster builds
 
 notifications:
