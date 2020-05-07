@@ -59,6 +59,7 @@ class Converter(val colors: ResourceCollector) {
 
         doc.getElementsByTagNameNS(null, "path").iterable.map { it as Element }.forEach {
             it.attributes.rename(ANDROID_NS, "pathData", SVG_NS, "d")
+            it.attributes.rename(ANDROID_NS, "fillType", SVG_NS, "fill-rule")
             it.fix()
         }
 
