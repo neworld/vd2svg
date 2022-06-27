@@ -84,19 +84,29 @@ class Converter(val colors: ResourceCollector) {
     }
 
     private fun Element.fixStroke() {
+		val strokelinecap = attributes.get(ANDROID_NS, "strokeLineCap")
+		val strokelinejoin = attributes.get(ANDROID_NS, "strokeLineJoin")
         val strokeColor = attributes.get(ANDROID_NS, "strokeColor")
         val strokeWidth = attributes.get(ANDROID_NS, "strokeWidth")
+		setAttribute("stroke-linecap", strokelinecap)
+		setAttribute("stroke-linejoin", strokelinejoin)
 
         if (strokeColor != null) {
             setAttribute("stroke", strokeColor)
+			setAttribute("stroke-linecap", strokelinecap)
+			setAttribute("stroke-linejoin", strokelinejoin)
         }
 
         if (strokeWidth != null) {
             setAttribute("stroke-width", strokeWidth)
+			setAttribute("stroke-linecap", strokelinecap)
+			setAttribute("stroke-linejoin", strokelinejoin)
         }
 
         removeAttributeNS(ANDROID_NS, "strokeColor")
         removeAttributeNS(ANDROID_NS, "strokeWidth")
+		removeAttributeNS(ANDROID_NS, "strokeLineCap")
+		removeAttributeNS(ANDROID_NS, "strokeLineJoin")
     }
 
     private fun Element.fixTranslate() {
