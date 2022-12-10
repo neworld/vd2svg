@@ -7,7 +7,7 @@ import org.w3c.dom.*
 import java.io.InputStream
 import java.io.OutputStream
 import javax.xml.parsers.DocumentBuilderFactory
-import javax.xml.transform.Transformer
+import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
@@ -23,9 +23,13 @@ class Converter(val colors: ResourceCollector) {
         factory.isNamespaceAware = true
         factory.newDocumentBuilder()
     }
-
-    private val transformer: Transformer
-        get() = TransformerFactory.newInstance().newTransformer()
+    private val transformer by lazy {
+        val factory = TransformerFactory.newInstance()
+        factory.setAttribute("indent-number", 4)
+        val transformer = factory.newTransformer()
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes")
+        transformer
+    }
 
     fun convert(input: InputStream, outputStream: OutputStream) {
         val doc = builder.parse(input)
