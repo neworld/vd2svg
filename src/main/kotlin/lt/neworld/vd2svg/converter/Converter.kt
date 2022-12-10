@@ -67,7 +67,53 @@ class Converter(val colors: ResourceCollector) {
             it.fix()
         }
 
+        doc.getElementsByTagNameNS(null, "clip-path").iterable.map { it as Element }.forEach {
+            val parent = it.parentNode as? Element
+            val clipPathId = convertClipPathElement(doc, it)
+            parent?.setAttribute("clip-path", "url(#$clipPathId)")
+            parent?.removeChild(it)
+        }
+
         fixEmptyNamespace(doc.documentElement)
+    }
+
+    private fun convertClipPathElement(doc: Document, element: Element): String? {
+        val index = clipPathCount(doc)
+        val id = "_clippath_$index"
+        val cp = createClipPath(doc, element, id)
+
+        addElementToDefSection(doc, cp)
+
+        return id
+    }
+
+    private fun clipPathCount(doc: Document): Int {
+        return doc.getElementsByTagName("clipPath").length
+    }
+
+    private fun addElementToDefSection(doc: Document, element: Element) {
+        val defSection = doc.getElementById(DEFS_SECTION) ?: createDefSection(doc)
+        defSection.appendChild(element)
+    }
+
+    private fun createDefSection(doc: Document): Element {
+        val element = doc.createElement("defs")
+        element.setId(DEFS_SECTION)
+        doc.documentElement.appendChild(element)
+
+        return element
+    }
+
+    private fun createClipPath(doc: Document, androidClipPath: Element, id: String): Element {
+        val pathData = androidClipPath.attributes.get(ANDROID_NS, "pathData")
+        val pathElement = doc.createElement("path")
+        pathElement.setAttribute("d", pathData)
+
+        val clipPathElement = doc.createElement("clipPath")
+        clipPathElement.setId(id)
+        clipPathElement.appendChild(pathElement)
+
+        return clipPathElement
     }
 
     private fun fixEmptyNamespace(node: Node) {
@@ -192,6 +238,27 @@ class Converter(val colors: ResourceCollector) {
         }
     }
 
+    private fun Element.appendChildNodes(nodes: List<Node>) {
+        nodes.forEach {
+            appendChild(it)
+        }
+    }
+
+    private fun Element.removeAllChildNodes() {
+        childNodes.iterable.forEach {
+            removeChild(it)
+        }
+    }
+
+    private fun Element.id(): String {
+        return getAttribute("id")
+    }
+
+    private fun Element.setId(id: String) {
+        setAttribute("id", id)
+        setIdAttribute("id", true)
+    }
+
     private fun NamedNodeMap.rename(nameSpaceUri: String, old: String, newNameSpaceUri: String?, new: String) {
         val node = getNamedItemNS(nameSpaceUri, old) as Attr? ?: return
         with(node.ownerElement) {
@@ -207,5 +274,7 @@ class Converter(val colors: ResourceCollector) {
     companion object {
         const val ANDROID_NS = "http://schemas.android.com/apk/res/android"
         const val SVG_NS = "http://www.w3.org/2000/svg"
+
+        const val DEFS_SECTION = "svg-definitions"
     }
 }
