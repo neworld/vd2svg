@@ -116,6 +116,37 @@ class Converter(val colors: ResourceCollector) {
         return clipPathElement
     }
 
+    private fun parseColor(color: String): Pair<String, Float?> {
+        var colorHex: String = color
+        if (color.startsWith("@")) {
+            val name = color.split("/").last()
+            val resourceHex = colors.getValue(name)
+            if (resourceHex == null) {
+                throw IllegalArgumentException("Color $name does not exists")
+            }
+
+            colorHex = resourceHex
+        }
+
+        return parseColorHex(colorHex)
+    }
+
+    private fun parseColorHex(colorHex: String): Pair<String, Float?> {
+        val color: String
+        if (colorHex.length < 6) {
+            color = colorHex.takeLast(3)
+        } else {
+            color = colorHex.takeLast(6)
+        }
+
+        var opacity: Float? = null
+        if (colorHex.length == 9) {
+            opacity = colorHex.drop(1).take(2).toInt(16).toFloat() / 255.0f
+        }
+
+        return Pair("#$color", opacity)
+    }
+
     private fun fixEmptyNamespace(node: Node) {
         node.childNodes.iterable.forEach {
             if (it is Element) {
@@ -136,15 +167,21 @@ class Converter(val colors: ResourceCollector) {
     private fun Element.fixStroke() {
         val strokeColor = attributes.get(ANDROID_NS, "strokeColor")
         val strokeWidth = attributes.get(ANDROID_NS, "strokeWidth")
+        val strokeOpacity = attributes.get(ANDROID_NS, "strokeAlpha")
         val strokeLineCap = attributes.get(ANDROID_NS, "strokeLineCap")
         val strokeLineJoin = attributes.get(ANDROID_NS, "strokeLineJoin")
 
         if (strokeColor != null) {
-            setAttribute("stroke", strokeColor)
+            val (strokeColorHex, _) = parseColor(strokeColor)
+            setAttribute("stroke", strokeColorHex)
         }
 
         if (strokeWidth != null) {
             setAttribute("stroke-width", strokeWidth)
+        }
+
+        if (strokeOpacity != null) {
+            setAttribute("stroke-opacity", strokeOpacity)
         }
 
         if (strokeLineCap != null) {
@@ -157,6 +194,7 @@ class Converter(val colors: ResourceCollector) {
 
         removeAttributeNS(ANDROID_NS, "strokeColor")
         removeAttributeNS(ANDROID_NS, "strokeWidth")
+        removeAttributeNS(ANDROID_NS, "strokeAlpha")
         removeAttributeNS(ANDROID_NS, "strokeLineCap")
         removeAttributeNS(ANDROID_NS, "strokeLineJoin")
     }
@@ -190,24 +228,28 @@ class Converter(val colors: ResourceCollector) {
     }
 
     private fun Element.fixFill() {
-        attributes.rename(ANDROID_NS, "fillColor", SVG_NS, "fill")
+        val fillColorName = attributes.get(ANDROID_NS, "fillColor")
+        var fillColorHex: String? = null
+        var fillAlpha: Float = attributes.get(ANDROID_NS, "fillAlpha")?.toFloatOrNull() ?: 1.0f
 
-        var value = attributes.get(null, "fill") ?: return
-
-        if (value.startsWith("@")) {
-            val name = value.split("/").last()
-            setAttribute("fill", colors.getValue(name))
+        if (fillColorName != null) {
+            val (colorHex, androidAlpha) = parseColor(fillColorName)
+            if (androidAlpha != null) {
+                fillAlpha *= androidAlpha
+            }
+            fillColorHex = colorHex
         }
 
-        value = attributes.get(null, "fill") ?: return
-
-        if (value.length == 9) {
-            val alpha = value.drop(1).take(2).toInt(16).toFloat() / 255.0
-            val color = value.drop(3)
-
-            setAttribute("fill", "#$color")
-            setAttribute("fill-opacity", alpha.toString())
+        if (fillAlpha != 1.0f) {
+            setAttribute("fill-opacity", fillAlpha.toString())
         }
+
+        if (fillColorHex != null) {
+            setAttribute("fill", fillColorHex)
+        }
+
+        removeAttributeNS(ANDROID_NS, "fillColor")
+        removeAttributeNS(ANDROID_NS, "fillAlpha")
     }
 
     private fun Element.fixRotate() {
