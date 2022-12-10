@@ -4,7 +4,6 @@ import com.intellij.rt.execution.junit.FileComparisonFailure
 import lt.neworld.vd2svg.converter.Converter
 import lt.neworld.vd2svg.resources.AndroidResourceParser
 import lt.neworld.vd2svg.resources.ResourceCollector
-import org.junit.Ignore
 import org.junit.Test
 import java.io.ByteArrayOutputStream
 import java.io.File

@@ -2,7 +2,6 @@ package lt.neworld.vd2svg.resources
 
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.w3c.dom.Node
 
 /**
  * @author Andrius Semionovas
@@ -10,12 +9,7 @@ import org.w3c.dom.Node
  */
 class AndroidResourceParserTest {
 
-    init {
-        print("hello world")
-    }
-
     val example = javaClass.classLoader.getResourceAsStream("xml/android_resource_example.xml")
-
     val fixture = AndroidResourceParser(example)
 
     @Test

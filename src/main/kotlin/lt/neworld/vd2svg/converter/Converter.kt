@@ -95,7 +95,7 @@ class Converter(val colors: ResourceCollector) {
         removeBlankNodes(doc)
     }
 
-    private fun convertClipPathElement(doc: Document, element: Element): String? {
+    private fun convertClipPathElement(doc: Document, element: Element): String {
         val index = clipPathCount(doc)
         val id = "_clippath_$index"
         val cp = createClipPath(doc, element, id)

@@ -1,3 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no"?><svg xmlns:n1="http://schemas.android.com/apk/res/android" height="16.0" width="16.0" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8,16c-4.418,0 -8,-3.582 -8,-8s3.582,-8 8,-8 8,3.582 8,8 -3.582,8 -8,8zM8,15c3.866,0 7,-3.134 7,-7s-3.134,-7 -7,-7 -7,3.134 -7,7 3.134,7 7,7zM7.5,6h1v6h-1v-6zM7.5,4h1v1h-1v-1zM6.5,6h1v1h-1v-1z" fill="#bbbbbb" fill-opacity="1.0"/>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<svg xmlns:n1="http://schemas.android.com/apk/res/android" height="16.0" width="16.0" xmlns="http://www.w3.org/2000/svg">
+    <path d="M8,16c-4.418,0 -8,-3.582 -8,-8s3.582,-8 8,-8 8,3.582 8,8 -3.582,8 -8,8zM8,15c3.866,0 7,-3.134 7,-7s-3.134,-7 -7,-7 -7,3.134 -7,7 3.134,7 7,7zM7.5,6h1v6h-1v-6zM7.5,4h1v1h-1v-1zM6.5,6h1v1h-1v-1z" fill="#bbbbbb"/>
 </svg>
