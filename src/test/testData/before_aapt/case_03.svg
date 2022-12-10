@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:android="http://schemas.android.com/apk/res/android" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#_clippath_0)">
+        <path d="M0,10.178L12.659,0L24,11.046L12.452,24L0,10.178Z" fill="#000000"/>
+    </g>
+    <defs id="svg-definitions">
+        <clipPath id="_clippath_0">
+            <path d="M6.782,10.412L12,15.554L18.494,12.634L15.75,7.352L6.782,10.412Z"/>
+        </clipPath>
+    </defs>
+</svg>

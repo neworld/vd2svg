@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:aapt="http://schemas.android.com/aapt" xmlns:android="http://schemas.android.com/apk/res/android" height="24" width="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,10.178L12.659,0L24,11.046L12.452,24L0,10.178Z" fill="#000000" fill-opacity="0.0" stroke="url(#_linear_gradient_0)" stroke-width="1"/>
+    <defs id="svg-definitions">
+        <linearGradient gradientUnits="userSpaceOnUse" id="_linear_gradient_0" x1="0" x2="24" y1="12" y2="12">
+            <stop offset="0" stop-color="#CA3058" stop-opacity="1.0"/>
+            <stop offset="1" stop-color="#FF9948" stop-opacity="1.0"/>
+        </linearGradient>
+    </defs>
+</svg>

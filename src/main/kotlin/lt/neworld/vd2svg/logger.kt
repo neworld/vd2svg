@@ -11,3 +11,7 @@ import java.util.logging.Logger
 fun logProgress(msg: String) {
     Logger.getGlobal().log(Level.INFO, msg)
 }
+
+fun logWarning(msg: String) {
+    Logger.getGlobal().log(Level.WARNING, msg)
+}
