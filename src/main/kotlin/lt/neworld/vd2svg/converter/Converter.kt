@@ -12,6 +12,9 @@ import javax.xml.transform.OutputKeys
 import javax.xml.transform.TransformerFactory
 import javax.xml.transform.dom.DOMSource
 import javax.xml.transform.stream.StreamResult
+import javax.xml.xpath.XPathConstants
+import javax.xml.xpath.XPathExpression
+import javax.xml.xpath.XPathFactory
 
 /**
  * @author Andrius Semionovas
@@ -89,6 +92,7 @@ class Converter(val colors: ResourceCollector) {
         }
 
         fixEmptyNamespace(doc.documentElement)
+        removeBlankNodes(doc)
     }
 
     private fun convertClipPathElement(doc: Document, element: Element): String? {
@@ -295,6 +299,16 @@ class Converter(val colors: ResourceCollector) {
         }
 
         return Pair("#$color", opacity)
+    }
+
+    private fun removeBlankNodes(doc: Document) {
+        doc.documentElement.normalize()
+        val xpath: XPathExpression = XPathFactory.newInstance().newXPath().compile("//text()[normalize-space(.) = '']")
+        val blankTextNodes = xpath.evaluate(doc, XPathConstants.NODESET) as NodeList
+
+        blankTextNodes.iterable.forEach {
+            it.parentNode.removeChild(it)
+        }
     }
 
     private fun fixEmptyNamespace(node: Node) {
