@@ -285,6 +285,15 @@ class Converter(val colors: ResourceCollector) {
         return parseColorHex(colorHex)
     }
 
+    private fun parseFillRule(currentRule: String): String {
+        return when (currentRule) {
+            "evenOdd" -> "evenodd"
+            "nonZero" -> "nonzero"
+            else ->
+                throw IllegalArgumentException("Unknown fill rule $currentRule")
+        }
+    }
+
     private fun parseColorHex(colorHex: String): Pair<String, Float?> {
         val color: String
         if (colorHex.length < 6) {
@@ -393,6 +402,7 @@ class Converter(val colors: ResourceCollector) {
 
     private fun Element.fixFill() {
         val fillColorName = attributes.get(ANDROID_NS, "fillColor")
+        val fillRuleAttr = attributes.getNamedItem("fill-rule")
         var fillColorHex: String? = null
         var fillAlpha: Float = attributes.get(ANDROID_NS, "fillAlpha")?.toFloatOrNull() ?: 1.0f
 
@@ -402,6 +412,10 @@ class Converter(val colors: ResourceCollector) {
                 fillAlpha *= androidAlpha
             }
             fillColorHex = colorHex
+        }
+
+        if (fillRuleAttr != null) {
+            setAttribute("fill-rule", parseFillRule(fillRuleAttr.nodeValue))
         }
 
         if (fillAlpha != 1.0f) {
